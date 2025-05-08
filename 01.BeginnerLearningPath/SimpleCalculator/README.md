@@ -20,8 +20,8 @@ A beginner-friendly Python command-line application that performs basic arithmet
 1. Ensure you have Python 3.x installed on your system.
 2. Clone this repository:
    ```
-   git clone https://github.com/yourusername/simple-calculator.git
-   cd simple-calculator
+   git clone https://github.com/Bhimonw/SimpleCalculator.git
+   cd SimpleCalculator
    ```
 3. No additional dependencies are required.
 
@@ -30,7 +30,7 @@ A beginner-friendly Python command-line application that performs basic arithmet
 Run the program from the command line:
 
 ```
-python calculator.py
+python Simplecalculator.py
 ```
 
 Follow the on-screen menu prompts:
@@ -91,7 +91,7 @@ Thank you for using the Simple Calculator. Goodbye!
 
 ## Project Structure
 
-- `calculator.py`: Main program file containing all the calculator functionality
+- `Simplecalculator.py`: Main program file containing all the calculator functionality
 
 ## Educational Value
 
