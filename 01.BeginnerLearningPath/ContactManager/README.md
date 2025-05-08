@@ -22,8 +22,8 @@ A simple Python command-line application that allows you to store and manage con
 1. Ensure you have Python 3.x installed on your system.
 2. Clone this repository:
    ```
-   git clone https://github.com/yourusername/contact-manager.git
-   cd contact-manager
+   git clone https://github.com/Bhimonw/ContactManager.git
+   cd ContactManager
    ```
 3. No additional dependencies are required.
 
@@ -32,7 +32,7 @@ A simple Python command-line application that allows you to store and manage con
 Run the program from the command line:
 
 ```
-python contact_manager.py
+python ContactManager.py
 ```
 
 Follow the on-screen menu prompts:
@@ -96,7 +96,7 @@ The program stores all contacts in a CSV file:
 
 ## Project Structure
 
-- `contact_manager.py`: Main program file containing all the code
+- `ContactManager.py`: Main program file containing all the code
 - `csv/` directory: Created automatically to store the contact database
 
 ## Educational Value
