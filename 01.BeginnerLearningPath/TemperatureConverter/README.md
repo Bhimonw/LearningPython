@@ -20,8 +20,8 @@ A simple Python command-line application that converts temperatures between Cels
 1. Ensure you have Python 3.x installed on your system.
 2. Clone this repository:
    ```
-   git clone https://github.com/yourusername/temperature-converter.git
-   cd temperature-converter
+   git clone https://github.com/Bhimonw/TemperatureConverter.git
+   cd TemperatureConverter
    ```
 3. No additional dependencies are required.
 
