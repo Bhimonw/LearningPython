@@ -3,230 +3,230 @@ import os
 
 def ensure_directory_exists(directory_path):
     """
-    Memastikan direktori target ada. Jika tidak ada, direktori akan dibuat.
+    Ensures the target directory exists. If it doesn't exist, the directory will be created.
     
     Args:
-        directory_path (str): Path direktori yang ingin dicek/dibuat
+        directory_path (str): Directory path to check/create
         
     Returns:
-        bool: True jika berhasil, False jika gagal
+        bool: True if successful, False if failed
     """
     if not directory_path:
-        return True  # Jika path kosong, berarti direktori saat ini
+        return True  # If path is empty, it means current directory
         
     if not os.path.exists(directory_path):
         try:
             os.makedirs(directory_path)
-            print(f"Direktori {directory_path} berhasil dibuat.")
+            print(f"Directory {directory_path} successfully created.")
             return True
         except Exception as e:
-            print(f"Error: Gagal membuat direktori: {e}")
+            print(f"Error: Failed to create directory: {e}")
             return False
     
     return True
 
 def is_file_exists(file_path):
     """
-    Memeriksa apakah file sudah ada
+    Checks if the file already exists
     
     Args:
-        file_path (str): Path file yang ingin dicek
+        file_path (str): File path to check
         
     Returns:
-        bool: True jika file ada, False jika tidak ada
+        bool: True if file exists, False if it doesn't
     """
     return os.path.isfile(file_path)
 
 def get_absolute_path(file_path):
     """
-    Mendapatkan path absolut dari file
+    Gets the absolute path of a file
     
     Args:
-        file_path (str): Path file
+        file_path (str): File path
         
     Returns:
-        str: Path absolut dari file
+        str: Absolute path of the file
     """
     return os.path.abspath(file_path)
 
-def tambah_kontak(file_path):
+def add_contact(file_path):
     """
-    Fungsi untuk menambahkan kontak baru ke dalam file CSV
+    Function to add a new contact to the CSV file
     
     Args:
-        file_path (str): Path file CSV tempat menyimpan kontak
+        file_path (str): CSV file path to store contacts
     """
-    print("\n=== Tambah Kontak Baru ===")
+    print("\n=== Add New Contact ===")
     
-    # Meminta input dari pengguna
-    nama = input("Masukkan nama: ").strip()
-    nomor_telepon = input("Masukkan nomor telepon: ").strip()
+    # Get user input
+    name = input("Enter name: ").strip()
+    phone_number = input("Enter phone number: ").strip()
     
-    # Validasi input sederhana
-    if not nama or not nomor_telepon:
-        print("Error: Nama dan nomor telepon tidak boleh kosong.")
+    # Simple input validation
+    if not name or not phone_number:
+        print("Error: Name and phone number cannot be empty.")
         return
     
-    # Pastikan direktori ada
+    # Make sure directory exists
     directory = os.path.dirname(file_path)
     if not ensure_directory_exists(directory):
         return
     
-    # Cek apakah file sudah ada
+    # Check if file already exists
     file_exists = is_file_exists(file_path)
     
     try:
-        # Buka file untuk penulisan
-        with open(file_path, 'a', newline='') as file_csv:
-            writer = csv.writer(file_csv)
+        # Open file for writing
+        with open(file_path, 'a', newline='') as csv_file:
+            writer = csv.writer(csv_file)
             
-            # Jika file baru, tambahkan header
+            # If it's a new file, add header
             if not file_exists:
-                writer.writerow(['Nama', 'Nomor Telepon'])
+                writer.writerow(['Name', 'Phone Number'])
             
-            # Tambahkan data kontak baru
-            writer.writerow([nama, nomor_telepon])
+            # Add new contact data
+            writer.writerow([name, phone_number])
         
-        # Konfirmasi keberhasilan
-        print(f"Sukses: Kontak '{nama}' berhasil ditambahkan!")
-        print(f"Info: Data tersimpan di: {get_absolute_path(file_path)}")
+        # Confirm success
+        print(f"Success: Contact '{name}' has been added!")
+        print(f"Info: Data saved at: {get_absolute_path(file_path)}")
     except PermissionError:
-        print("Error: Tidak memiliki izin untuk menulis ke file. Pastikan Anda memiliki akses yang tepat.")
+        print("Error: No permission to write to file. Make sure you have the correct access.")
     except IOError as e:
-        print(f"Error: Tidak dapat menulis ke file: {e}")
+        print(f"Error: Cannot write to file: {e}")
     except Exception as e:
-        print(f"Error: Terjadi kesalahan tak terduga saat menyimpan: {e}")
+        print(f"Error: An unexpected error occurred while saving: {e}")
 
 def display_table_header(header):
     """
-    Menampilkan header tabel dengan format yang rapi
+    Displays the table header with a neat format
     
     Args:
-        header (list): List berisi nama-nama kolom header
+        header (list): List containing header column names
     """
-    # Menentukan lebar kolom
-    nama_width = 25
-    telepon_width = 20
+    # Define column widths
+    name_width = 25
+    phone_width = 20
     
-    # Menampilkan header
-    print(f"┌{'─' * nama_width}┬{'─' * telepon_width}┐")
-    print(f"│ {header[0]:<{nama_width-2}} │ {header[1]:<{telepon_width-2}} │")
-    print(f"├{'─' * nama_width}┼{'─' * telepon_width}┤")
+    # Display header
+    print(f"┌{'─' * name_width}┬{'─' * phone_width}┐")
+    print(f"│ {header[0]:<{name_width-2}} │ {header[1]:<{phone_width-2}} │")
+    print(f"├{'─' * name_width}┼{'─' * phone_width}┤")
 
-def display_table_row(row, nama_width=25, telepon_width=20):
+def display_table_row(row, name_width=25, phone_width=20):
     """
-    Menampilkan baris data dengan format yang rapi
+    Displays a data row with a neat format
     
     Args:
-        row (list): List berisi data yang akan ditampilkan
-        nama_width (int): Lebar kolom nama
-        telepon_width (int): Lebar kolom telepon
+        row (list): List containing data to be displayed
+        name_width (int): Width of name column
+        phone_width (int): Width of phone column
     """
-    print(f"│ {row[0]:<{nama_width-2}} │ {row[1]:<{telepon_width-2}} │")
+    print(f"│ {row[0]:<{name_width-2}} │ {row[1]:<{phone_width-2}} │")
 
-def display_table_footer(nama_width=25, telepon_width=20):
+def display_table_footer(name_width=25, phone_width=20):
     """
-    Menampilkan footer tabel
+    Displays the table footer
     
     Args:
-        nama_width (int): Lebar kolom nama
-        telepon_width (int): Lebar kolom telepon
+        name_width (int): Width of name column
+        phone_width (int): Width of phone column
     """
-    print(f"└{'─' * nama_width}┴{'─' * telepon_width}┘")
+    print(f"└{'─' * name_width}┴{'─' * phone_width}┘")
 
-def tampilkan_kontak(file_path):
+def display_contacts(file_path):
     """
-    Fungsi untuk menampilkan semua kontak dari file CSV dengan format tabel yang rapi
+    Function to display all contacts from the CSV file in a neat table format
     
     Args:
-        file_path (str): Path file CSV yang berisi data kontak
+        file_path (str): CSV file path containing contact data
     """
-    print("\n=== Daftar Kontak ===")
+    print("\n=== Contact List ===")
     
-    # Memeriksa apakah file sudah ada
+    # Check if file exists
     if not is_file_exists(file_path):
-        print("Info: File kontak belum ada. Silakan tambahkan kontak terlebih dahulu.")
+        print("Info: Contact file doesn't exist yet. Please add a contact first.")
         return
     
     try:
-        with open(file_path, 'r', newline='') as file_csv:
-            reader = csv.reader(file_csv)
+        with open(file_path, 'r', newline='') as csv_file:
+            reader = csv.reader(csv_file)
             
-            # Membaca header
+            # Read header
             header = next(reader, None)
             if not header:
-                print("Error: Format file tidak valid atau file kosong.")
+                print("Error: Invalid file format or empty file.")
                 return
                 
-            # Baca semua baris untuk menghitung jumlah kontak
+            # Read all rows to count the number of contacts
             rows = list(reader)
-            jumlah_kontak = len(rows)
+            contact_count = len(rows)
             
-            if jumlah_kontak == 0:
-                print("Info: Tidak ada kontak yang tersimpan.")
+            if contact_count == 0:
+                print("Info: No contacts saved.")
                 return
                 
-            # Tampilkan header tabel
+            # Display table header
             display_table_header(header)
             
-            # Tampilkan setiap baris data
+            # Display each data row
             for row in rows:
                 if len(row) >= 2:
                     display_table_row(row)
             
-            # Tampilkan footer tabel
+            # Display table footer
             display_table_footer()
             
-            # Tampilkan jumlah kontak
-            print(f"\nTotal: {jumlah_kontak} kontak.")
+            # Display contact count
+            print(f"\nTotal: {contact_count} contacts.")
             
     except PermissionError:
-        print("Error: Tidak memiliki izin untuk membaca file.")
+        print("Error: No permission to read file.")
     except IOError as e:
-        print(f"Error: Tidak dapat membaca file: {e}")
+        print(f"Error: Cannot read file: {e}")
     except Exception as e:
-        print(f"Error: Terjadi kesalahan saat membaca file: {e}")
+        print(f"Error: An error occurred while reading file: {e}")
 
-def tampilkan_menu():
+def display_menu():
     """
-    Menampilkan menu aplikasi
+    Displays the application menu
     
     Returns:
-        str: Pilihan menu dari pengguna
+        str: Menu choice from user
     """
-    print("\nPilih Menu:")
-    print("1. Tambah Kontak")
-    print("2. Tampilkan Kontak")
-    print("3. Keluar")
+    print("\nSelect Menu:")
+    print("1. Add Contact")
+    print("2. Display Contacts")
+    print("3. Exit")
     
-    return input("\nMasukkan pilihan (1/2/3): ").strip()
+    return input("\nEnter your choice (1/2/3): ").strip()
 
 def main():
     """
-    Fungsi utama untuk menjalankan program
+    Main function to run the program
     """
-    # Konstanta untuk path file
+    # Constants for file path
     FOLDER_PATH = "./csv/"
-    FILE_NAME = "kontak.csv"
+    FILE_NAME = "contacts.csv"
     file_path = os.path.join(FOLDER_PATH, FILE_NAME)
     
-    # Header aplikasi
+    # Application header
     print("╔════════════════════════════════╗")
-    print("║    APLIKASI MANAJEMEN KONTAK   ║")
+    print("║     CONTACT MANAGEMENT APP     ║")
     print("╚════════════════════════════════╝")
     
     while True:
-        pilihan = tampilkan_menu()
+        choice = display_menu()
         
-        if pilihan == '1':
-            tambah_kontak(file_path)
-        elif pilihan == '2':
-            tampilkan_kontak(file_path)
-        elif pilihan == '3':
-            print("\nTerima kasih telah menggunakan aplikasi ini!")
+        if choice == '1':
+            add_contact(file_path)
+        elif choice == '2':
+            display_contacts(file_path)
+        elif choice == '3':
+            print("\nThank you for using this application!")
             break
         else:
-            print("Error: Pilihan tidak valid. Silakan pilih 1, 2, atau 3.")
+            print("Error: Invalid choice. Please select 1, 2, or 3.")
 
 if __name__ == "__main__":
     main()
