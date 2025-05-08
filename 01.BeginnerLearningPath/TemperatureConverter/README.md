@@ -30,7 +30,7 @@ A simple Python command-line application that converts temperatures between Cels
 Run the program from the command line:
 
 ```
-python temperature_converter.py
+python TemperatureConverter.py
 ```
 
 Follow the on-screen menu prompts:
@@ -89,7 +89,7 @@ The program uses the following formulas for conversions:
 
 ## Project Structure
 
-- `temperature_converter.py`: Main program file containing all the code
+- `TemperatureConverter.py`: Main program file containing all the code
 
 ## Educational Value
 
